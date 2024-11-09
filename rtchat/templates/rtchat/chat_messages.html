@@ -1,0 +1,18 @@
+{% if user == message.author %}
+<li class="flex justify-end mb-4">
+    <div class="bg-green-200 rounded-l-lg rounded-tr-lg p-4 max-w-[75%]">
+        <span>{{ message.text }}</span>
+    </div>
+</li>
+{% else %}
+<li>
+    <div class="flex justify-start">
+        <div class="bg-white p-4 max-w-[75%] rounded-r-lg rounded-tl-lg">
+            <span>{{ message.text }}</span>
+        </div>  
+    </div>
+    <div class="text-sm font-light py-1 ml-10">
+        <span class="text-gray-400">@{{ message.author.username }}</span>
+    </div>
+</li>
+{% endif %}

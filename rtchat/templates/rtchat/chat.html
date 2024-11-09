@@ -1,0 +1,80 @@
+{% extends 'rtchat/base.html' %}
+
+{% block layout %}
+
+<wrapper class="block max-w-2xl mx-auto my-10 px-6">
+    <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
+        <div id='chat_container' class="overflow-y-auto grow">
+            <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
+                {% for message in messages reversed %}
+                {% include 'rtchat/chat_messages.html' %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
+            <div class="flex items-center rounded-xl px-2 py-2">
+                <form id="chat_message_form" method='POST' class="w-full">
+                    {% csrf_token %}
+                    <input type="text" name="message" placeholder="Add message ..." maxlength="150">
+                </form>
+            </div>
+        </div>
+
+        <a href="{% url 'logout-view'%}">Logout</a>
+    </div>
+</wrapper>
+
+<script type="text/javascript">
+    const socket = new WebSocket('ws://localhost:8000/ws/socket-server/')
+
+    socket.onmessage = function(e) {
+
+        const data = JSON.parse(e.data);
+        console.log('Data:', data)
+
+        if(data.type === 'chat'){
+            const message = data.message;
+            const username = data.username;
+            const loggedInUser = "{{ user.username }}";
+
+            const messageList = document.getElementById('chat_messages');
+            const newMessageElement = document.createElement('li');
+
+            if( loggedInUser == username ) {
+                newMessageElement.className = 'flex justify-end mb-4';
+                newMessageElement.innerHTML = `
+                    <div class="bg-green-200 rounded-l-lg rounded-tr-lg p-4 max-w-[75%]">
+                        <span>${ message }</span>
+                    </div>
+                `;
+            } else {
+                newMessageElement.className = 'flex justify-start mb-4';
+                newMessageElement.innerHTML = `
+                    <div class="bg-white rounded-r-lg rounded-tl-lg p-4 max-w-[75%]">
+                        <span>${ message }</span>
+                    </div>
+                    <div class="text-sm font-light py-1 ml-10">
+                        <span class="text-gray-400">@${ username }</span>
+                    </div>
+                `;
+            }
+
+            messageList.appendChild(newMessageElement); // Add the new message to the list
+        }
+    }
+    
+    let form = document.getElementById('chat_message_form')
+
+    form.addEventListener('submit',function(e) {
+        e.preventDefault()
+        let message = e.target.message.value
+        const username = '{{ user.username }}'
+        socket.send(JSON.stringify({
+            'message': message,
+            'username': username,
+        }))
+        form.reset()
+    })
+</script>
+
+{% endblock %}
