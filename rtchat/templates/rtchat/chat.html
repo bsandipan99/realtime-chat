@@ -2,6 +2,17 @@
 
 {% block layout %}
 
+<header class="page-header">
+    <div class="d-flex align-items-center mb-4">
+        <div class="container d-flex justify-content-between align-items-center w-100">
+            <h3 class="m-0"><a href="{% url 'chat-view' %}">Welcome {{ user.username }} !!!</a></h3>
+            <a href="{% url 'logout-view' %}">
+                <input type="submit" value="Logout" class="btn btn-secondary btn-lg">
+            </a>
+        </div>
+    </div>
+</header>
+
 <wrapper class="block max-w-2xl mx-auto my-10 px-6">
     <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
         <div id='chat_container' class="overflow-y-auto grow">
@@ -15,12 +26,10 @@
             <div class="flex items-center rounded-xl px-2 py-2">
                 <form id="chat_message_form" method='POST' class="w-full">
                     {% csrf_token %}
-                    <input type="text" name="message" placeholder="Add message ..." maxlength="150">
+                    <input type="text" name="message" id="message" placeholder="Add message ..." maxlength="150">
                 </form>
             </div>
         </div>
-
-        <a href="{% url 'logout-view'%}">Logout</a>
     </div>
 </wrapper>
 

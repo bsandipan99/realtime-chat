@@ -1,0 +1,43 @@
+.page-header {
+    background-color: #000000;
+    margin-top: 0;
+    margin-bottom: 40px;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h3,
+.page-header h3 a,
+.page-header h3 a:visited,
+.page-header h3 a:active {
+    color: #ffffff;
+    font-size: 26pt;
+    text-decoration: none;
+}
+
+.save {
+    float: right;
+}
+
+.top-menu,
+.top-menu:hover,
+.top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.btn-trash,
+.btn-trash:visited,
+.btn-secondary,
+.btn-secondary:visited {
+    color: #FFFFFF;
+    background: none;
+    border-color: #FFFFFF;
+}
+
+.btn-trash:hover,
+.btn-secondary:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+}
