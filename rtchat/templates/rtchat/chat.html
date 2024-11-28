@@ -34,7 +34,7 @@
 </wrapper>
 
 <script type="text/javascript">
-    const socket = new WebSocket('ws://localhost:8000/ws/socket-server/')
+    const socket = new WebSocket('/ws/socket-server/')
 
     socket.onmessage = function(e) {
 
