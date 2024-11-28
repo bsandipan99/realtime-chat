@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import GroupMessage
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.http import HttpRequest
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
