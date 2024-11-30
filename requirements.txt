@@ -8,3 +8,4 @@ PyJWT==2.10.0
 python-dotenv==1.0.1
 requests==2.32.3
 whitenoise==6.8.2
+psycopg2-binary==2.9.10
