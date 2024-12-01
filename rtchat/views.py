@@ -35,8 +35,7 @@ def logout_view(request):
     return redirect('login')
 
 def home(request):
-    messages = GroupMessage.objects.all()
-    return render(request,'rtchat/homepage.html',{'messages': messages})
+    return render(request,'rtchat/homepage.html')
 
 def chat_view(request):
     user, redirect_url = authenticate_user(request)
